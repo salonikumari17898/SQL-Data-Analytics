@@ -1,0 +1,573 @@
+use customer_db;
+CREATE TABLE employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    ManagerID INT
+);
+CREATE TABLE departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50)
+);
+CREATE TABLE salaries (
+    EmployeeID INT PRIMARY KEY,
+    Salary INT
+);
+INSERT INTO departments (DepartmentID, DepartmentName)
+VALUES
+(101, 'IT'),
+(102, 'HR'),
+(103, 'Finance'),
+(104, 'Marketing'),
+(105, 'Sales');
+ INSERT INTO employees
+(EmployeeID, FirstName, LastName, DepartmentID, ManagerID)
+VALUES
+(1, 'Rahul', 'Sharma', 101, NULL),
+(2, 'Priya', 'Singh', 101, 1),
+(3, 'Amit', 'Kumar', 102, 5),
+(4, 'Neha', 'Verma', 103, 5),
+(5, 'Rohit', 'Gupta', 104, NULL),
+(6, 'Sneha', 'Roy', 106, 1);
+INSERT INTO salaries (EmployeeID, Salary)
+VALUES
+(1, 80000),
+(2, 60000),
+(3, 55000),
+(4, 70000),
+(5, 65000);
+-- Question 1: Display employee names and their department names.
+SELECT 
+    e.EmployeeID,
+    e.FirstName,
+    e.LastName,
+    d.DepartmentName
+FROM employees e
+INNER JOIN departments d
+    ON e.DepartmentID = d.DepartmentID;
+    # Question 2: Find employees working in the IT department.
+    SELECT 
+    e.EmployeeID,
+    e.FirstName,
+    e.LastName,
+    d.DepartmentName
+FROM employees e
+INNER JOIN departments d
+    ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentName = 'IT';
+#display the employee name and salary
+SELECT
+    e.FirstName,
+    e.LastName,
+    s.Salary
+FROM employees e
+INNER JOIN salaries s
+    ON e.EmployeeID = s.EmployeeID;
+    # display employee name, department and salary
+    SELECT
+    e.FirstName,
+    e.LastName,
+    d.DepartmentName,
+    s.Salary
+FROM employees e
+INNER JOIN departments d
+    ON e.DepartmentID = d.DepartmentID
+INNER JOIN salaries s
+    ON e.EmployeeID = s.EmployeeID;
+    
+    
+    
+    
+    
+  # practice question
+  CREATE DATABASE customer_db;
+
+USE customer_db;
+
+CREATE TABLE customers (
+    CustomerID VARCHAR(10) PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    City VARCHAR(50),
+    State VARCHAR(50)
+);
+    
+    INSERT INTO customers
+(CustomerID, FirstName, LastName, Email, PhoneNumber, City, State)
+VALUES
+('C001','Rahul','Sharma','rahul.sharma@email.com','+91 98765 43210','bangalore','Karnataka'),
+('C002','priya','Patel','priya.patel@email.com','+91 87654 32109','Delhi','Delhi'),
+('C003','amit','Singh','amit.singh@email.com','+91 76543 21098','mumbai','Maharashtra'),
+('C004','Neha','Gupta','neha.gupta@email.com','+91 65432 10987','Chennai','Tamil Nadu'),
+('C005','Vikram','Reddy','vikram.reddy@email.com','+91 54321 09876','Hyderabad','Telangana'),
+('C006','Anita','Desai','anita.desai@email.com','+91 43210 98765','kolkata','West Bengal'),
+('C007','Rajesh','Kumar','rajesh.kumar@email.com','+91 32109 87654','ahmedabad','Gujarat'),
+('C008','Sunita','Verma','sunita.verma@email.com','+91 21098 76543','Pune','Maharashtra'),
+('C009','Karthik','Nair','karthik.nair@email.com','+91 10987 65432','jaipur','Rajasthan'),
+('C010','Meera','Joshi','meera.joshi@email.com','+91 09876 54321','Lucknow','Uttar Pradesh'),
+
+('C011','Arjun','Rao','arjun.rao@email.com','+91 98765 43211','Bangalore','Karnataka'),
+('C012','nisha','iyer','nisha.iyer@email.com','+91 87654 32110','delhi','Delhi'),
+('C013','Divya','Malhotra','divya.malhotra@email.com','+91 76543 21099','Mumbai','Maharashtra'),
+('C014','Sanjay','Mehta','sanjay.mehta@email.com','+91 65432 10986','chennai','Tamil Nadu'),
+('C015','Preeti','Choudhury','preeti.choudhury@email.com','+91 54321 09875','hyderabad','Telangana'),
+('C016','anjali','Menon','anjali.menon@email.com','+91 43210 98766','kolkata','West Bengal'),
+('C017','Arun','Kapoor','arun.kapoor@email.com','+91 32109 87653','Ahmedabad','Gujarat'),
+('C018','vikrant','singhania','vikrant.singhania@email.com','+91 21098 76542','pune','Maharashtra'),
+('C019','Rahul','Sharma','rahul.sharma@email.com','+91 10987 65433','Jaipur','Rajasthan'),
+('C020','Divya','Patel','priya.patel@email.com','+91 09876 54320','lucknow','Uttar Pradesh'),
+
+('C021','Sanjay','Singh','amit.singh@email.com','+91 98765 43212','Bangalore','Karnataka'),
+('C022','Preeti','Gupta','neha.gupta@email.com','+91 87654 32111','Delhi','Delhi'),
+('C023','Anjali','Reddy','vikram.reddy@email.com','+91 76543 21100','mumbai','Maharashtra'),
+('C024','Arun','Desai','anita.desai@email.com','+91 65432 10985','chennai','Tamil Nadu'),
+('C025','vikrant','Kumar','rajesh.kumar@email.com','+91 54321 09874','hyderabad','Telangana'),
+('C026','rahul','Verma','sunita.verma@email.com','+91 43210 98767','kolkata','West Bengal'),
+('C027','Divya','Nair','karthik.nair@email.com','+91 32109 87652','Ahmedabad','Gujarat'),
+('C028','Sanjay','Joshi','meera.joshi@email.com','+91 21098 76541','pune','Maharashtra'),
+('C029','Preeti','Rao','arjun.rao@email.com','+91 10987 65434','jaipur','Rajasthan'),
+('C030','anjali','iyer','nisha.iyer@email.com','+91 09876 54319','lucknow','Uttar Pradesh'),
+
+('C031','Arun','Malhotra','divya.malhotra@email.com','+91 98765 43213','Bangalore','Karnataka'),
+('C032','vikrant','Mehta','sanjay.mehta@email.com','+91 87654 32112','delhi','Delhi'),
+('C033','Rahul','Choudhury','preeti.choudhury@email.com','+91 76543 21101','Mumbai','Maharashtra'),
+('C034','Divya','Menon','anjali.menon@email.com','+91 65432 10984','chennai','Tamil Nadu'),
+('C035','Sanjay','Kapoor','arun.kapoor@email.com','+91 54321 09873','hyderabad','Telangana'),
+('C036','Preeti','singhania','vikrant.singhania@email.com','+91 43210 98768','kolkata','West Bengal'),
+('C037','anjali','Sharma','rahul.sharma@email.com','+91 32109 87651','Ahmedabad','Gujarat'),
+('C038','Arun','Patel','priya.patel@email.com','+91 21098 76540','Pune','Maharashtra'),
+('C039','vikrant','Singh','amit.singh@email.com','+91 10987 65435','jaipur','Rajasthan'),
+('C040','rahul','Gupta','neha.gupta@email.com','+91 09876 54318','Lucknow','Uttar Pradesh'),
+
+('C041','Divya','Reddy','vikram.reddy@email.com','+91 98765 43214','Bangalore','Karnataka'),
+('C042','Sanjay','Desai','anita.desai@email.com','+91 87654 32113','delhi','Delhi'),
+('C043','Preeti','Kumar','rajesh.kumar@email.com','+91 76543 21102','Mumbai','Maharashtra'),
+('C044','Anjali','Verma','sunita.verma@email.com','+91 65432 10983','chennai','Tamil Nadu'),
+('C045','Arun','Nair','karthik.nair@email.com','+91 54321 09872','Hyderabad','Telangana'),
+('C046','vikrant','Joshi','meera.joshi@email.com','+91 43210 98769','kolkata','West Bengal'),
+('C047','rahul','Rao','arjun.rao@email.com','+91 32109 87650','Ahmedabad','Gujarat'),
+('C048','Divya','iyer','nisha.iyer@email.com','+91 21098 76539','pune','Maharashtra'),
+('C049','Sanjay','Malhotra','divya.malhotra@email.com','+91 10987 65436','jaipur','Rajasthan'),
+('C050','Preeti','Mehta','sanjay.mehta@email.com','+91 09876 54317','lucknow','Uttar Pradesh'),
+
+('C051','Anjali','Choudhury','preeti.choudhury@email.com','+91 98765 43215','Bangalore','Karnataka'),
+('C052','Arun','Menon','anjali.menon@email.com','+91 87654 32114','Delhi','Delhi'),
+('C053','vikrant','Kapoor','arun.kapoor@email.com','+91 76543 21103','mumbai','Maharashtra'),
+('C054','rahul','singhania','vikrant.singhania@email.com','+91 65432 10982','chennai','Tamil Nadu'),
+('C055','Divya','Sharma','rahul.sharma@email.com','+91 54321 09871','hyderabad','Telangana'),
+('C056','Sanjay','Patel','priya.patel@email.com','+91 43210 98770','kolkata','West Bengal'),
+('C057','Preeti','Singh','amit.singh@email.com','+91 32109 87649','Ahmedabad','Gujarat'),
+('C058','anjali','Gupta','neha.gupta@email.com','+91 21098 76538','Pune','Maharashtra'),
+('C059','Arun','Reddy','vikram.reddy@email.com','+91 10987 65437','jaipur','Rajasthan'),
+('C060','vikrant','Desai','anita.desai@email.com','+91 09876 54316','Lucknow','Uttar Pradesh'),
+
+('C061','rahul','Kumar','rajesh.kumar@email.com','+91 98765 43216','Bangalore','Karnataka'),
+('C062','Divya','Verma','sunita.verma@email.com','+91 87654 32115','delhi','Delhi'),
+('C063','Sanjay','Nair','karthik.nair@email.com','+91 76543 21104','Mumbai','Maharashtra'),
+('C064','Preeti','Joshi','meera.joshi@email.com','+91 65432 10981','chennai','Tamil Nadu'),
+('C065','anjali','Rao','arjun.rao@email.com','+91 54321 09870','hyderabad','Telangana'),
+('C066','Arun','iyer','nisha.iyer@email.com','+91 43210 98771','kolkata','West Bengal'),
+('C067','vikrant','Malhotra','divya.malhotra@email.com','+91 32109 87648','Ahmedabad','Gujarat'),
+('C068','rahul','Mehta','sanjay.mehta@email.com','+91 21098 76537','Pune','Maharashtra'),
+('C069','Divya','Choudhury','preeti.choudhury@email.com','+91 10987 65438','jaipur','Rajasthan'),
+('C070','Sanjay','Menon','anjali.menon@email.com','+91 09876 54315','Lucknow','Uttar Pradesh'),
+
+('C071','Preeti','Kapoor','arun.kapoor@email.com','+91 98765 43217','Bangalore','Karnataka'),
+('C072','Anjali','singhania','vikrant.singhania@email.com','+91 87654 32116','Delhi','Delhi'),
+('C073','Arun','Sharma','rahul.sharma@email.com','+91 76543 21105','mumbai','Maharashtra'),
+('C074','vikrant','Patel','priya.patel@email.com','+91 65432 10980','chennai','Tamil Nadu'),
+('C075','rahul','Singh','amit.singh@email.com','+91 54321 09869','Hyderabad','Telangana'),
+('C076','Divya','Gupta','neha.gupta@email.com','+91 43210 98772','kolkata','West Bengal'),
+('C077','Sanjay','Reddy','vikram.reddy@email.com','+91 32109 87647','Ahmedabad','Gujarat'),
+('C078','Preeti','Desai','anita.desai@email.com','+91 21098 76536','Pune','Maharashtra'),
+('C079','Anjali','Kumar','rajesh.kumar@email.com','+91 10987 65439','jaipur','Rajasthan'),
+('C080','Arun','Verma','sunita.verma@email.com','+91 09876 54314','Lucknow','Uttar Pradesh'),
+
+('C081','vikrant','Nair','karthik.nair@email.com','+91 98765 43218','Bangalore','Karnataka'),
+('C082','rahul','Joshi','meera.joshi@email.com','+91 87654 32117','delhi','Delhi'),
+('C083','Divya','Rao','arjun.rao@email.com','+91 76543 21106','mumbai','Maharashtra'),
+('C084','Sanjay','iyer','nisha.iyer@email.com','+91 65432 10979','Chennai','Tamil Nadu'),
+('C085','Preeti','Malhotra','divya.malhotra@email.com','+91 54321 09868','Hyderabad','Telangana'),
+('C086','anjali','Mehta','sanjay.mehta@email.com','+91 43210 98773','kolkata','West Bengal'),
+('C087','Arun','Choudhury','preeti.choudhury@email.com','+91 32109 87646','Ahmedabad','Gujarat'),
+('C088','vikrant','Menon','anjali.menon@email.com','+91 21098 76535','pune','Maharashtra'),
+('C089','rahul','Kapoor','arun.kapoor@email.com','+91 10987 65440','Jaipur','Rajasthan'),
+('C090','Divya','singhania','vikrant.singhania@email.com','+91 09876 54313','lucknow','Uttar Pradesh'),
+
+('C091','Sanjay','Sharma','rahul.sharma@email.com','+91 98765 43219','Bangalore','Karnataka'),
+('C092','Preeti','Patel','priya.patel@email.com','+91 87654 32118','delhi','Delhi'),
+('C093','anjali','Singh','amit.singh@email.com','+91 76543 21107','mumbai','Maharashtra'),
+('C094','Arun','Gupta','neha.gupta@email.com','+91 65432 10978','chennai','Tamil Nadu'),
+('C095','vikrant','Reddy','vikram.reddy@email.com','+91 54321 09867','hyderabad','Telangana'),
+('C096','rahul','Desai','anita.desai@email.com','+91 43210 98774','kolkata','West Bengal'),
+('C097','Divya','Kumar','rajesh.kumar@email.com','+91 32109 87645','Ahmedabad','Gujarat'),
+('C098','Sanjay','Verma','sunita.verma@email.com','+91 21098 76534','pune','Maharashtra'),
+('C099','Preeti','Nair','karthik.nair@email.com','+91 10987 65441','jaipur','Rajasthan'),
+('C100','anjali','Joshi','meera.joshi@email.com','+91 09876 54312','lucknow','Uttar Pradesh');
+    
+    
+  INSERT INTO products
+(ProductID, ProductName, Category, UnitPrice, SupplierID)
+VALUES
+('P001','RunFast Elite','Running',5999,'S001'),
+('P002','StreetStyle Pro','Casual',9999,'S002'),
+('P003','CourtMaster','Tennis',5999,'S003'),
+('P004','TrailBlazer X','Hiking',7999,'S001'),
+('P005','UrbanChic','Fashion',7999,'S004'),
+('P006','AirFlex Supreme','Running',8999,'S002'),
+('P007','ComfortWalk Lite','Casual',4999,'S003'),
+('P008','SportsPro GT','Training',6999,'S001'),
+('P009','YogaFlex Zen','Fitness',3999,'S004'),
+('P010','SkateKing Pro','Skateboarding',5499,'S002'),
+
+('P011','RunFast Ultra','Running',6199,'S001'),
+('P012','StreetStyle Max','Casual',10199,'S002'),
+('P013','CourtMaster Pro','Tennis',6199,'S003'),
+('P014','TrailBlazer Ultra','Hiking',8199,'S001'),
+('P015','UrbanChic Plus','Fashion',8199,'S004'),
+('P016','AirFlex Pro','Running',9299,'S002'),
+('P017','ComfortWalk Ultra','Casual',5199,'S003'),
+('P018','SportsPro Max','Training',7199,'S001'),
+('P019','YogaFlex Pro','Fitness',4199,'S004'),
+('P020','SkateKing Max','Skateboarding',5699,'S002'),
+
+('P021','RunFast Speed','Running',6399,'S001'),
+('P022','StreetStyle X','Casual',10399,'S002'),
+('P023','CourtMaster X','Tennis',6399,'S003'),
+('P024','TrailBlazer Max','Hiking',8399,'S001'),
+('P025','UrbanChic X','Fashion',8399,'S004'),
+('P026','AirFlex Max','Running',9599,'S002'),
+('P027','ComfortWalk Max','Casual',5399,'S003'),
+('P028','SportsPro Ultra','Training',7399,'S001'),
+('P029','YogaFlex Ultra','Fitness',4399,'S004'),
+('P030','SkateKing Ultra','Skateboarding',5899,'S002'),
+
+('P031','RunFast Prime','Running',6599,'S001'),
+('P032','StreetStyle Prime','Casual',10599,'S002'),
+('P033','CourtMaster Prime','Tennis',6599,'S003'),
+('P034','TrailBlazer Prime','Hiking',8599,'S001'),
+('P035','UrbanChic Prime','Fashion',8599,'S004'),
+('P036','AirFlex Prime','Running',9799,'S002'),
+('P037','ComfortWalk Prime','Casual',5599,'S003'),
+('P038','SportsPro Prime','Training',7599,'S001'),
+('P039','YogaFlex Prime','Fitness',4599,'S004'),
+('P040','SkateKing Prime','Skateboarding',6099,'S002'),
+
+('P041','RunFast Plus','Running',6799,'S001'),
+('P042','StreetStyle Plus','Casual',10799,'S002'),
+('P043','CourtMaster Plus','Tennis',6799,'S003'),
+('P044','TrailBlazer Plus','Hiking',8799,'S001'),
+('P045','UrbanChic Plus','Fashion',8799,'S004'),
+('P046','AirFlex Plus','Running',9999,'S002'),
+('P047','ComfortWalk Plus','Casual',5799,'S003'),
+('P048','SportsPro Plus','Training',7799,'S001'),
+('P049','YogaFlex Plus','Fitness',4799,'S004'),
+('P050','SkateKing Plus','Skateboarding',6299,'S002');
+    
+   SELECT COUNT(*) AS Total_Products
+FROM products; 
+CREATE TABLE sales (
+    SaleID INT PRIMARY KEY,
+    SaleDate DATE,
+    ProductID VARCHAR(10),
+    CustomerID VARCHAR(10),
+    Quantity INT,
+    TotalAmount DECIMAL(10,2),
+    SalesRepID VARCHAR(10),
+    StoreLocation VARCHAR(100)
+);
+    INSERT INTO sales
+(SaleID, SaleDate, ProductID, CustomerID, Quantity, TotalAmount, SalesRepID, StoreLocation)
+VALUES
+(1,'2023-01-01','P003','C045',2,11998,'SR05','Mumbai, Maharashtra'),
+(2,'2023-01-01','P001','C078',1,5999,'SR02','Delhi, Delhi'),
+(3,'2023-01-02','P005','C023',3,23997,'SR01','Bangalore, Karnataka'),
+(4,'2023-01-02','P002','C056',1,9999,'SR03','CHENNAI, Tamil Nadu'),
+(5,'2023-01-03','P004','C089',2,15998,'SR04','Kolkata, west bengal'),
+(6,'2023-01-03','P001','C012',1,5999,'SR06','PUNE, maharashtra'),
+(7,'2023-01-04','P003','C034',4,23996,'SR07','Hyderabad, Telangana'),
+(8,'2023-01-04','P002','C067',2,19998,'SR08','Ahmedabad, Gujarat'),
+(9,'2023-01-05','P005','C001',1,7999,'SR09','Jaipur, Rajasthan'),
+(10,'2023-01-05','P004','C090',3,23997,'SR10','LUCKNOW, Uttar Pradesh'),
+
+(11,'2023-01-06','P003','C011',2,11998,'SR05','Mumbai, Maharashtra'),
+(12,'2023-01-06','P001','C018',1,5999,'SR02','Delhi, Delhi'),
+(13,'2023-01-07','P005','C013',3,23997,'SR01','Bangalore, Karnataka'),
+(14,'2023-01-07','P002','C026',1,9999,'SR03','CHENNAI, Tamil Nadu'),
+(15,'2023-01-08','P004','C019',2,15998,'SR04','Kolkata, west bengal'),
+(16,'2023-01-08','P001','C029',1,5999,'SR06','PUNE, maharashtra'),
+(17,'2023-01-09','P003','C031',4,23996,'SR07','Hyderabad, Telangana'),
+(18,'2023-01-09','P002','C017',2,19998,'SR08','Ahmedabad, Gujarat'),
+(19,'2023-01-10','P005','C008',1,7999,'SR09','Jaipur, Rajasthan'),
+(20,'2023-01-10','P004','C015',3,23997,'SR10','LUCKNOW, Uttar Pradesh'),
+
+(21,'2023-01-11','P003','C042',2,11998,'SR05','Mumbai, Maharashtra'),
+(22,'2023-01-11','P001','C028',1,5999,'SR02','Delhi, Delhi'),
+(23,'2023-01-12','P005','C003',3,23997,'SR01','Bangalore, Karnataka'),
+(24,'2023-01-12','P002','C022',1,9999,'SR03','CHENNAI, Tamil Nadu'),
+(25,'2023-01-13','P004','C023',2,15998,'SR04','Kolkata, west bengal'),
+(26,'2023-01-13','P001','C045',1,5999,'SR06','PUNE, maharashtra'),
+(27,'2023-01-14','P003','C012',4,23996,'SR07','Hyderabad, Telangana'),
+(28,'2023-01-14','P002','C067',2,19998,'SR08','Ahmedabad, Gujarat'),
+(29,'2023-01-15','P005','C036',1,7999,'SR09','Jaipur, Rajasthan'),
+(30,'2023-01-15','P004','C040',3,23997,'SR10','LUCKNOW, Uttar Pradesh'),
+
+(31,'2023-01-16','P003','C037',2,11998,'SR05','Mumbai, Maharashtra'),
+(32,'2023-01-16','P001','C048',1,5999,'SR02','Delhi, Delhi'),
+(33,'2023-01-17','P005','C038',3,23997,'SR01','Bangalore, Karnataka'),
+(34,'2023-01-17','P002','C053',1,9999,'SR03','CHENNAI, Tamil Nadu'),
+(35,'2023-01-18','P004','C056',2,15998,'SR04','Kolkata, west bengal'),
+(36,'2023-01-18','P001','C062',1,5999,'SR06','PUNE, maharashtra'),
+(37,'2023-01-19','P003','C065',4,23996,'SR07','Hyderabad, Telangana'),
+(38,'2023-01-19','P002','C072',2,19998,'SR08','Ahmedabad, Gujarat'),
+(39,'2023-01-20','P005','C078',1,7999,'SR09','Jaipur, Rajasthan'),
+(40,'2023-01-20','P004','C081',3,23997,'SR10','LUCKNOW, Uttar Pradesh'),
+
+(41,'2023-01-21','P003','C082',2,11998,'SR05','Mumbai, Maharashtra'),
+(42,'2023-01-21','P001','C084',1,5999,'SR02','Delhi, Delhi'),
+(43,'2023-01-22','P005','C086',3,23997,'SR01','Bangalore, Karnataka'),
+(44,'2023-01-22','P002','C088',1,9999,'SR03','CHENNAI, Tamil Nadu'),
+(45,'2023-01-23','P004','C091',2,15998,'SR04','Kolkata, west bengal'),
+(46,'2023-01-23','P001','C093',1,5999,'SR06','PUNE, maharashtra'),
+(47,'2023-01-24','P003','C095',4,23996,'SR07','Hyderabad, Telangana'),
+(48,'2023-01-24','P002','C097',2,19998,'SR08','Ahmedabad, Gujarat'),
+(49,'2023-01-25','P005','C099',1,7999,'SR09','Jaipur, Rajasthan'),
+(50,'2023-01-25','P004','C100',3,23997,'SR10','LUCKNOW, Uttar Pradesh');
+  CREATE TABLE sales_reps (
+    SalesRepID VARCHAR(10) PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    HireDate DATE,
+    Region VARCHAR(50)
+);  
+    INSERT INTO sales_reps
+(SalesRepID, FirstName, LastName, HireDate, Region)
+VALUES
+('SR01','Arun','Kapoor','2020-03-15','North'),
+('SR02','divya','malhotra','2019-07-01','West'),
+('SR03','Sanjay','Mehta','2021-01-10','South'),
+('SR04','Preeti','Choudhury','2020-11-05','East'),
+('SR05','Anjali','Menon','2019-12-03','Northwest'),
+('SR06','Vikrant','Singhania','2019-09-20','Central'),
+('SR07','Nisha','iyer','2021-04-30','Southwest'),
+('SR08','Rahul','Saxena','2020-06-12','Northeast'),
+('SR09','Arjun','Reddy','2021-02-18','Southeast'),
+('SR10','Kavita','Sharma','2020-08-22','North Central'),
+
+('SR11','arun','Kapoor','2020-03-16','North'),
+('SR12','Divya','malhotra','2019-07-02','West'),
+('SR13','sanjay','Mehta','2021-01-11','South'),
+('SR14','Preeti','Choudhury','2020-11-06','East'),
+('SR15','anjali','menon','2019-12-04','Northwest'),
+('SR16','Vikrant','Singhania','2019-09-21','Central'),
+('SR17','Nisha','Iyer','2021-05-01','Southwest'),
+('SR18','Rahul','Saxena','2020-06-13','Northeast'),
+('SR19','Arjun','Reddy','2021-02-19','Southeast'),
+('SR20','kavita','Sharma','2020-08-23','North Central'),
+
+('SR21','Arun','Kapoor','2020-03-17','North'),
+('SR22','Divya','Malhotra','2019-07-03','West'),
+('SR23','sanjay','Mehta','2021-01-12','South'),
+('SR24','Preeti','Choudhury','2020-11-07','East'),
+('SR25','Anjali','Menon','2019-12-05','Northwest'),
+('SR26','vikrant','singhania','2019-09-22','Central'),
+('SR27','Nisha','Iyer','2021-05-02','Southwest'),
+('SR28','Rahul','Saxena','2020-06-14','Northeast'),
+('SR29','Arjun','Reddy','2021-02-20','Southeast'),
+('SR30','Kavita','Sharma','2020-08-24','North Central'),
+
+('SR31','Arun','Kapoor','2020-03-18','North'),
+('SR32','Divya','Malhotra','2019-07-04','West'),
+('SR33','sanjay','Mehta','2021-01-13','South'),
+('SR34','Preeti','Choudhury','2020-11-08','East'),
+('SR35','Anjali','menon','2019-12-06','Northwest'),
+('SR36','Vikrant','Singhania','2019-09-23','Central'),
+('SR37','Nisha','Iyer','2021-05-03','Southwest'),
+('SR38','Rahul','saxena','2020-06-15','Northeast'),
+('SR39','Arjun','Reddy','2021-02-21','Southeast'),
+('SR40','Kavita','Sharma','2020-08-25','North Central'),
+
+('SR41','Arun','Kapoor','2020-03-19','North'),
+('SR42','divya','malhotra','2019-07-05','West'),
+('SR43','Sanjay','Mehta','2021-01-14','South'),
+('SR44','Preeti','Choudhury','2020-11-09','East'),
+('SR45','anjali','menon','2019-12-07','Northwest'),
+('SR46','Vikrant','Singhania','2019-09-24','Central'),
+('SR47','Nisha','Iyer','2021-05-04','Southwest'),
+('SR48','Rahul','Saxena','2020-06-16','Northeast'),
+('SR49','Arjun','Reddy','2021-02-22','Southeast'),
+('SR50','Kavita','Sharma','2020-08-26','North Central');
+    
+CREATE TABLE suppliers (
+    SupplierID VARCHAR(10) PRIMARY KEY,
+    SupplierName VARCHAR(100),
+    ContactPerson VARCHAR(100),
+    Email VARCHAR(100),
+    PhoneNumber VARCHAR(20),
+    Country VARCHAR(50)
+);
+
+
+INSERT INTO Suppliers
+(SupplierID, SupplierName, ContactPerson, Email, PhoneNumber, Country)
+VALUES
+('S001','SportsTrend Enterprises','Rajiv Khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S002','fitness footwear ltd.','Anjali Bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S003','AthleticZone Corp.','Suresh Menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S004','UrbanKicks India','Pooja Reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S005','TrendySteps Pvt Ltd','Aryan Gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S006','SportsTrend Co.','rajiv khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S007','fitness footwear','anjali bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S008','AthleticZone Company','suresh menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S009','UrbanKicks Pvt Ltd','pooja reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S010','TrendySteps Corp.','aryan gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S011','SportsTrend Ltd','Rajiv Khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S012','FitnessFootwear Inc.','Anjali Bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S013','AthleticZone Ltd','Suresh Menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S014','UrbanKicks Co.','Pooja Reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S015','TrendySteps Ltd.','Aryan Gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S016','SportsTrend Inc.','rajiv khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S017','Fitness Footwear','anjali bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S018','AthleticZone Pvt Ltd','suresh menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S019','UrbanKicks Enterprises','pooja reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S020','TrendySteps Co.','aryan gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S021','SportsTrend Pvt Ltd','Rajiv Khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S022','Fitness Footwear Ltd','Anjali Bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S023','AthleticZone Corp.','Suresh Menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S024','UrbanKicks Ltd','Pooja Reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S025','TrendySteps Enterprises','Aryan Gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S026','SportsTrend Corp.','rajiv khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S027','Fitness Footwear Inc.','anjali bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S028','AthleticZone Co.','suresh menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S029','UrbanKicks Pvt Ltd','pooja reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S030','TrendySteps Pvt Ltd','aryan gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S031','SportsTrend Ltd.','Rajiv Khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S032','FitnessFootwear Ltd.','Anjali Bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S033','AthleticZone Ltd.','Suresh Menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S034','UrbanKicks Co.','Pooja Reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S035','TrendySteps Ltd.','Aryan Gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S036','SportsTrend Enterprises','rajiv khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S037','fitness footwear','anjali bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S038','AthleticZone Enterprises','suresh menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S039','UrbanKicks Inc.','pooja reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S040','TrendySteps Co.','aryan gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S041','SportsTrend Co.','Rajiv Khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S042','Fitness Footwear Ltd','Anjali Bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S043','AthleticZone Corp.','Suresh Menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S044','UrbanKicks Ltd.','Pooja Reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S045','TrendySteps Enterprises','Aryan Gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India'),
+
+('S046','SportsTrend Corp.','rajiv khanna','rajiv.k@sportstrend.com','+91 22 2222 3333','India'),
+('S047','fitness footwear inc.','anjali bose','anjali.b@fitnessfootwear.com','+91 11 3333 4444','India'),
+('S048','AthleticZone Ltd.','suresh menon','suresh.m@athleticzone.com','+91 80 4444 5555','India'),
+('S049','UrbanKicks Pvt Ltd.','pooja reddy','pooja.r@urbankicks.com','+91 44 5555 6666','India'),
+('S050','TrendySteps Inc.','aryan gupta','aryan.g@trendysteps.com','+91 33 6666 7777','India');
+    select * from suppliers;
+ --  Objective 1: Analyzing Sales Performance  
+ -- What is the total sales amount generated by each sales representative?
+ Select SalesRepID,sum(TotalAmount)as Total_sales from sales group by SalesRepID
+ order by Total_sales Desc;
+ 
+ SELECT 
+    s.SalesRepID,
+    r.FirstName,
+    r.LastName,
+    SUM(s.TotalAmount) AS Total_sales
+FROM sales s
+JOIN sales_reps r
+    ON s.SalesRepID = r.SalesRepID
+GROUP BY 
+    s.SalesRepID,
+    r.FirstName,
+    r.LastName
+ORDER BY Total_sales asc;
+-- How many products have been sold in each store location?
+select 
+StoreLocation ,sum(Quantity)as Total_Products_Sold
+From sales
+Group by StoreLocation 
+Order by Total_Products_Sold Desc;
+-- Which product category has the highest total sales amount?
+select
+p.Category,sum(TotalAmount) as Total_Sales from products p
+join Sales s 
+on p. ProductID = s.ProductID
+group by p.Category
+order by Total_Sales desc;
+
+-- What is the average quantity of products sold per sale?
+SELECT
+    AVG(Quantity) AS Average_Quantity
+FROM sales;
+
+-- Which customer has made the highest number of purchases?
+select 
+c.FirstName,
+c.LastName,MAX(s.TotalAmount) as Total_Sales from Customers c
+join Sales s
+ on c.CustomerID = s.CustomerID;
+ 
+ -- What is the distribution of total sales amounts across different months?
+SELECT
+    MONTHNAME(SaleDate) AS Month_Name,
+    SUM(TotalAmount) AS Total_Sales
+FROM Sales
+GROUP BY MONTH(SaleDate), MONTHNAME(SaleDate)
+ORDER BY MONTH(SaleDate);
+-- How does the sales performance of different regions compare?
+SELECT
+    r.Region,
+    SUM(s.TotalAmount) AS Total_Sales
+FROM sales s
+JOIN sales_reps r
+    ON s.SalesRepID = r.SalesRepID
+GROUP BY r.Region
+ORDER BY Total_Sales DESC;
+-- What is the total sales amount generated for each product?
+select
+p.ProductName,
+SUM(p.UnitPrice) AS Total_Amount from products p
+join sales s
+on s.ProductID = p.ProductID
+group by p.ProductName
+ORDER BY Total_Amount DESC;
+SELECT
+    p.ProductID,
+    p.ProductName,
+    SUM(s.TotalAmount) AS Total_Sales
+FROM products p
+JOIN sales s
+    ON s.ProductID = p.ProductID
+GROUP BY
+    p.ProductID,
+    p.ProductName
+ORDER BY Total_Sales DESC;
+-- What is the average sales amount per transaction? 
+SELECT 
+    AVG(TotalAmount) AS Average_Sales
+FROM sales;
+-- How many sales transactions were made by each sales representative?
+SELECT
+    r.SalesRepID,
+    r.FirstName,
+    r.LastName,
+    COUNT(s.SaleID) AS Number_of_Transactions
+FROM sales_reps r
+JOIN sales s
+    ON s.SalesRepID = r.SalesRepID
+GROUP BY
+    r.SalesRepID,
+    r.FirstName,
+    r.LastName
+ORDER BY Number_of_Transactions DESC;
