@@ -1,0 +1,196 @@
+CREATE DATABASE EmployeeDB;
+USE EmployeeDB;
+
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50),
+    Location VARCHAR(50)
+);
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    ManagerID INT,
+    Salary DECIMAL(10,2),
+    HireDate DATE,
+    City VARCHAR(50),
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+CREATE TABLE Projects (
+    ProjectID INT PRIMARY KEY,
+    ProjectName VARCHAR(100),
+    DepartmentID INT,
+    Budget DECIMAL(12,2),
+    StartDate DATE,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+CREATE TABLE EmployeeProjects (
+    EmployeeID INT,
+    ProjectID INT,
+    HoursWorked INT,
+    PRIMARY KEY (EmployeeID, ProjectID),
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+    FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID)
+);
+INSERT INTO Departments VALUES
+(1, 'IT', 'Delhi'),
+(2, 'HR', 'Mumbai'),
+(3, 'Finance', 'Bangalore'),
+(4, 'Marketing', 'Pune'),
+(5, 'Operations', 'Chennai');
+
+INSERT INTO Employees VALUES
+(101, 'John', 'Smith', 1, NULL, 75000, '2021-01-15', 'Delhi'),
+(102, 'Emma', 'Brown', 1, 101, 65000, '2022-03-10', 'Delhi'),
+(103, 'Michael', 'Wilson', 1, 101, 58000, '2023-06-20', 'Mumbai'),
+(104, 'Sophia', 'Taylor', 2, NULL, 70000, '2020-08-12', 'Mumbai'),
+(105, 'James', 'Anderson', 2, 104, 52000, '2023-01-25', 'Mumbai'),
+(106, 'Olivia', 'Thomas', 3, NULL, 85000, '2019-05-18', 'Bangalore'),
+(107, 'William', 'Jackson', 3, 106, 60000, '2022-11-01', 'Bangalore'),
+(108, 'Ava', 'White', 4, NULL, 68000, '2021-09-14', 'Pune'),
+(109, 'Daniel', 'Harris', 4, 108, 48000, '2024-02-05', 'Pune'),
+(110, 'Isabella', 'Martin', 5, NULL, 72000, '2020-12-20', 'Chennai');
+
+INSERT INTO Projects VALUES
+(201, 'Website Development', 1, 500000, '2024-01-01'),
+(202, 'Employee Portal', 2, 250000, '2024-02-15'),
+(203, 'Financial Analysis', 3, 400000, '2024-03-10'),
+(204, 'Marketing Campaign', 4, 300000, '2024-04-01'),
+(205, 'Operations Automation', 5, 350000, '2024-05-20');
+
+INSERT INTO EmployeeProjects VALUES
+(101, 201, 120),
+(102, 201, 100),
+(103, 201, 80),
+(104, 202, 110),
+(105, 202, 90),
+(106, 203, 130),
+(107, 203, 100),
+(108, 204, 95),
+(109, 204, 75),
+(110, 205, 125);
+-- Display all employees.
+select * from employees;
+-- Display only the first name, last name, and salary of employees.
+SELECT FirstName, LastName, Salary
+FROM Employees;
+-- Find employees whose salary is greater than 60,000.
+SELECT
+    EmployeeID,
+    FirstName,
+    LastName,
+    Salary
+FROM Employees
+WHERE Salary > 60000;
+-- Find employees who live in Delhi.
+select
+EmployeeID,
+    FirstName,
+    LastName,
+    City
+    FROM Employees
+    Where City= 'Delhi';
+    -- Display employees whose salary is between 50,000 and 70,000.
+    SELECT
+    EmployeeID,
+    FirstName,
+    LastName,
+    Salary
+FROM Employees
+WHERE Salary BETWEEN 50000 AND 70000;
+-- Display employees whose first name starts with J.
+SELECT
+    EmployeeID,
+    FirstName,
+    LastName
+    from Employees
+    Where FirstName like 'J%';
+   --  Display all unique cities where employees live.
+  SELECT DISTINCT City
+FROM Employees;
+-- Display employees in descending order of salary.
+Select 
+FirstName,
+LastName,
+Salary
+from Employees
+order by Salary desc;
+-- Find the employee with the highest salary.
+SELECT
+    FirstName,
+    LastName,
+    Salary
+FROM Employees
+WHERE Salary = (
+    SELECT MAX(Salary)
+    FROM Employees
+);
+-- Find the top 3 highest-paid employees.
+select 
+FirstName,
+Salary
+from Employees
+ORDER BY Salary DESC
+LIMIT 3;
+-- LEVEL 2 — Aggregate Functions
+-- Find the total number of employees.
+SELECT COUNT(EmployeeID) AS Total_Employees
+FROM Employees;
+-- Find the average salary of all employees
+SELECT AVG(Salary)
+FROM Employees;
+-- Find the highest and lowest salary.
+select max(Salary),min(Salary) from Employees;
+-- Find the total salary paid to all employees.
+select sum(Salary) as Total_Salary from Employees;
+-- Find the number of employees in each department.
+SELECT
+    DepartmentID,
+    COUNT(EmployeeID) AS Number_of_Employees
+FROM Employees
+GROUP BY DepartmentID;
+-- Find the average salary of each department
+SELECT
+    DepartmentID,
+    AVG(Salary) AS Average_Salary
+FROM Employees
+GROUP BY DepartmentID;
+-- Find the highest salary in each department
+SELECT
+    DepartmentID,
+    Max(Salary) AS Highest_Salary
+FROM Employees
+GROUP BY DepartmentID; 
+
+-- Find departments having more than 2 employees
+SELECT
+    DepartmentID,
+    COUNT(EmployeeID) AS Number_of_Employees
+FROM Employees
+GROUP BY DepartmentID
+HAVING COUNT(EmployeeID) > 2;
+-- Find departments where the average salary is greater than 60,000.
+SELECT
+    DepartmentID,
+    AVG(Salary) AS Average_Salary
+FROM Employees
+GROUP BY DepartmentID
+HAVING AVG(Salary) > 60000;
+
+-- Find cities having more than 1 employee.
+SELECT
+    City,
+    COUNT(EmployeeID) AS Number_of_Employees
+FROM Employees
+GROUP BY City
+HAVING COUNT(EmployeeID) > 1;
+-- Find departments where the highest salary is greater than 70,000.
+select 
+DepartmentID,
+max(Salary) as Highest_Salary from Employees
+group by DepartmentID
+having max(Salary)>70000;
