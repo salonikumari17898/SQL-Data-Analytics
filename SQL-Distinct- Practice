@@ -1,0 +1,70 @@
+CREATE DATABASE sales_db;
+USE sales_db;
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(50),
+    city VARCHAR(50),
+    product VARCHAR(50),
+    category VARCHAR(50),
+    payment_method VARCHAR(30),
+    sales DECIMAL(10,2)
+);
+INSERT INTO orders
+(order_id, customer_name, city, product, category, payment_method, sales)
+VALUES
+(101, 'Rahul', 'Delhi', 'Laptop', 'Electronics', 'UPI', 55000),
+(102, 'Priya', 'Mumbai', 'Phone', 'Electronics', 'Credit Card', 30000),
+(103, 'Amit', 'Delhi', 'Headphones', 'Electronics', 'UPI', 2500),
+(104, 'Neha', 'Bangalore', 'Laptop', 'Electronics', 'Debit Card', 60000),
+(105, 'Riya', 'Mumbai', 'Shoes', 'Fashion', 'UPI', 3500),
+(106, 'Rahul', 'Delhi', 'T-Shirt', 'Fashion', 'Cash', 1200),
+(107, 'Amit', 'Pune', 'Jeans', 'Fashion', 'UPI', 2200),
+(108, 'Neha', 'Bangalore', 'Phone', 'Electronics', 'Credit Card', 32000),
+(109, 'Riya', 'Mumbai', 'Laptop', 'Electronics', 'UPI', 58000),
+(110, 'Rahul', 'Pune', 'Shoes', 'Fashion', 'Cash', 4000),
+(111, 'Amit', 'Delhi', 'Laptop', 'Electronics', 'UPI', 62000),
+(112, 'Priya', 'Mumbai', 'T-Shirt', 'Fashion', 'Credit Card', 1500);
+
+-- Q1. Find all unique cities from the orders table.
+select distinct city  from orders;
+-- Q2. Find all unique product names.
+select distinct product from orders;
+-- Find all unique product categories.
+select distinct category from orders;
+-- Find all unique payment methods.
+select distinct payment_method from orders;
+-- Find all unique customer names.
+select distinct customer_name from orders;
+-- How many different cities are present in the dataset?
+select count(distinct city) as unique_cities from orders;
+-- How many unique customers have placed orders?
+select count(distinct customer_name)as unique_customers from orders;
+-- How many unique products are sold?
+select count(distinct product) as unique_product from orders; 
+-- How many different payment methods are used?
+select count(distinct payment_method) as payment_method from orders;
+-- Find unique combinations of city and category.
+select distinct city, category from orders;
+-- Find unique combinations of customer and city.
+select distinct customer_name ,city from orders;
+-- Find unique combinations of product and payment method.
+select distinct product ,payment_method from orders;
+SELECT DISTINCT customer_name, city
+FROM orders;
+-- Find the number of unique customers from Delhi.
+select count(distinct customer_name)as unique_customers
+ from orders
+where city ="Delhi";
+
+-- Find the number of unique products in the Electronics category.
+SELECT COUNT(DISTINCT product) AS unique_products
+FROM orders
+WHERE category = 'Electronics';
+-- Find unique payment methods used for orders from Mumbai.
+select count(distinct payment_method)as payment_method
+from orders
+where city = 'Mumbai';
+-- Find unique customers who purchased a Laptop.
+SELECT COUNT(DISTINCT customer_name) AS unique_customers
+FROM orders
+WHERE product = 'Laptop';
